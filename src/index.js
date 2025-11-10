@@ -1,14 +1,13 @@
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import connectDB from './db/index.js';
 import { app } from './app.js';
 
-dotenv.config();
 
 connectDB()
 .then(() => {
     const port = process.env.port || 8000;
     app.on('error', (error) => {
-        console.log('Unable to start server!!');
+        console.error('Unable to start server!!');
         throw error;
     })
     app.listen(port, () => {
@@ -16,5 +15,5 @@ connectDB()
     })
 })
 .catch((err) => {
-    console.log('DB connection failed: ', err);
+    console.error('DB connection failed: ', err);
 })
